@@ -74,7 +74,7 @@ $info = $api->program($id);
 ###tvchannel###
 
 | id                |   Nimi     |
-----------------------------------
+|-------------------|------------|
 |yle-tv1			|Yle TV1     |
 |yle-tv2			|Yle TV2     |
 |yle-teema			|Yle Teema   |
@@ -85,7 +85,7 @@ $info = $api->program($id);
 ###radiochannel###
 
 | id                           |   Nimi                     |
--------------------------------------------------------------
+|------------------------------|----------------------------|
 |yle-radio-1                   |Yle Radio 1                 |
 |yle-puhe                      |Yle Puhe                    |
 |yle-mondo                     |Yle Mondo                   |
