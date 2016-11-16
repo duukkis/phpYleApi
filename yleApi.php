@@ -93,6 +93,25 @@ class yleApi {
     return json_decode($c);
   }
   
+  /**
+  * list services (accepts also limit and offset)
+  * @param string $service tvchannel|radiochannel|ondemandservice|webcastservice
+  */
+  public function services($service = "tvchannel"){
+    $url = $this->buildUrl("programs/services.json", array("type" => $service));
+    $c = $this->fetch($url);
+    return json_decode($c);
+  }
+  
+  /**
+  * what is playing
+  */
+  public function nowplaying($id = "yle-radio-1"){
+    $url = $this->buildUrl("programs/nowplaying/".$id.".json", array());
+    $c = $this->fetch($url);
+    return json_decode($c);
+  }
+  
 
   /**
   * find programs

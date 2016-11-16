@@ -55,10 +55,69 @@ $api->easyFetch = false;
 // disable basic file cache
 $api->cache = false;
 
+// radiochannels
+$services = $api->services("radiochannel");
+
+// tvchannels
+$services = $api->services("tvchannel");
+
+// now playing on ylex
+print_r($api->nowplaying("ylex"));
+
 //--- get a single program info
-// $info = $api->program($id);
+$info = $api->program($id);
 
 ```
+
+##Services##
+
+###tvchannel###
+
+| id                |   Nimi     |
+----------------------------------
+|yle-tv1			|Yle TV1     |
+|yle-tv2			|Yle TV2     |
+|yle-teema			|Yle Teema   |
+|yle-fem			|Yle Fem     |
+|tv-finland			|TV Finland  |
+|yle-hd				|Yle HD      |
+
+###radiochannel###
+
+| id                           |   Nimi                     |
+-------------------------------------------------------------
+|yle-radio-1                   |Yle Radio 1                 |
+|yle-puhe                      |Yle Puhe                    |
+|yle-mondo                     |Yle Mondo                   |
+|ylex                          |YleX                        |
+|yle-x3m                       |Yle X3M                     |
+|yle-radio-vega                |Yle Vega                    |
+|radio-vega-huvudstadsregionen |Yle Vega Huvudstadsregionen |
+|radio-vega-vastnyland         |Yle Vega Västnyland         |
+|radio-vega-aboland            |Yle Vega Åboland            |
+|radio-vega-osterbotten        |Yle Vega Österbotten        |
+|radio-vega-ostnyland          |Yle Vega Östnyland          |
+|yle-radio-suomi               |Yle Radio Suomi             |
+|yle-radio-suomi-lappeenranta  |Yle Radio Suomi Lappeenranta|
+|yle-radio-suomi-mikkeli       |Yle Radio Suomi Mikkeli     |
+|yle-radio-suomi-kajaani       |Yle Radio Suomi Kajaani     |
+|yle-radio-suomi-kotka         |Yle Radio Suomi Kotka       |
+|yle-radio-suomi-lahti         |Yle Radio Suomi Lahti       |
+|yle-radio-suomi-rovaniemi     |Yle Radio Suomi Rovaniemi   |
+|yle-radio-suomi-oulu          |Yle Radio Suomi Oulu        |
+|yle-radio-suomi-pohjanmaa     |Yle Radio Suomi Pohjanmaa   |
+|yle-radio-suomi-joensuu       |Yle Radio Suomi Joensuu     |
+|yle-radio-suomi-hameenlinna   |Yle Radio Suomi Hämeenlinna |
+|yle-radio-suomi-kokkola       |Yle Radio Suomi Kokkola     |
+|yle-radio-suomi-jyvaskyla     |Yle Radio Suomi Jyväskylä   |
+|yle-radio-suomi-kemi          |Yle Radio Suomi Kemi        |
+|yle-radio-suomi-kuopio        |Yle Radio Suomi Kuopio      |
+|yle-radio-suomi-pori          |Yle Radio Suomi Pori        |
+|yle-radio-suomi-tampere       |Yle Radio Suomi Tampere     |
+|yle-radio-suomi-turku         |Yle Radio Suomi Turku       |
+|yle-radio-suomi-helsinki      |Yle Radio Suomi Helsinki    |
+|yle-sami-radio                |Yle Sámi Radio              |
+|elavan-arkiston-nettiradio    |Elävän arkiston nettiradio  |
 
 ##Categories##
 
