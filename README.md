@@ -42,12 +42,18 @@ foreach($programs->data AS $n => $prog){
       //--- this is where the magic is
       print $loaded->data[0]->url."\n";
     }
-    / print_r($loaded);
+    print '<img src="'.$api->imageUrl($prog->image, "w_120,h_120,c_fit").'" />';
+    // print_r($loaded);
   }
   print "----------------\n";
 }
 //print_r($programs);
 
+// use curl
+$api->easyFetch = false;
+
+// disable basic file cache
+$api->cache = false;
 
 //--- get a single program info
 // $info = $api->program($id);

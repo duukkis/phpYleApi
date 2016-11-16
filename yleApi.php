@@ -6,6 +6,7 @@
 class yleApi {
   
   public $base_url = "https://external.api.yle.fi/v1/";
+  public $image_base_url = "http://images.cdn.yle.fi/image/upload/";
   public $app_id = null;
   public $app_key = null;
   public $decrypt_key = null;
@@ -68,8 +69,18 @@ class yleApi {
       }
       return $data;
     } else {
-      // TODO
       // curl fetch
+      $curl = curl_init($url);
+      curl_setopt($curl, CURLOPT_POST, 0);
+      curl_setopt($curl, CURLOPT_RETURNTRANSFER, TRUE);
+      curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, FALSE);
+      curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, FALSE);
+      $data = curl_exec($curl);
+      curl_close($curl);
+      if($this->cache){
+        @file_put_contents($cpath, $data);
+      }
+      return $data;
     }
   }
   
@@ -122,6 +133,8 @@ class yleApi {
   
   /**
   * report usage to yle. If you start playing, call this once
+  * @param string $program_id
+  * @param string $media_id
   */
   public function reportUsage($program_id, $media_id) {
     $url = $this->buildUrl("tracking/streamstart", array("program_id" => $program_id, "media_id" => $media_id));
@@ -130,9 +143,12 @@ class yleApi {
   
   /**
   * load media
+  * @param string $program_id
+  * @param string $media_id
+  * @param string $type HLS|HDS
   */
-  public function loadMedia($program_id, $media_id){
-    $url = $this->buildUrl("media/playouts.json", array("program_id" => $program_id, "media_id" => $media_id, "protocol" => "HLS"));
+  public function loadMedia($program_id, $media_id, $type = "HLS"){
+    $url = $this->buildUrl("media/playouts.json", array("program_id" => $program_id, "media_id" => $media_id, "protocol" => $type));
     $c = $this->fetch($url);
     $data = json_decode($c);
     if(isset($data->data[0]->url)){
@@ -142,8 +158,25 @@ class yleApi {
   }
   
   /**
-  * decodeUrl
-  * 
+  * returns url to image based on imageObject
+  * @param string $transformations - (fex. "w_120,h_120,c_fit") http://cloudinary.com/documentation/image_transformations
+  * @param string $format gif|png|jpg
+  */
+  public function imageUrl($image, $transformations, $format = "jpg"){
+    $url = null;
+    if(isset($image->id)) {
+      $url = $this->image_base_url;
+      if(!empty($transformations)){
+        $url .= $transformations."/";
+      }
+      $url .= $image->id.".".$format;
+    }
+    return $url;
+  }
+  
+  /**
+  * decodeUrl - decodes coded url
+  * @param string $url - base64 encrypted url
   */
   public function decodeUrl($url){
     $url = base64_decode($url);
